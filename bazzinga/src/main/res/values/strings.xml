@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Bazzinga</string>
+    <string name="api_exception_unknown_error">Unknown</string>
+</resources>
