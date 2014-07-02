@@ -30,7 +30,7 @@ public class BaseDb
 
     private BaseDb() {}
 
-    public BaseDb(Context context, String packageName, String dbName, int dbVersion, Class[] modelClasses)
+    private BaseDb(Context context, String packageName, String dbName, int dbVersion, Class[] modelClasses)
     {
         mContext = context;
         mPackageName = packageName;
@@ -38,6 +38,21 @@ public class BaseDb
         mDbVersion = dbVersion;
         mModelClasses = modelClasses;
         dbHelper = new BaseDbHelper(context);
+    }
+
+    private static BaseDb sBaseDb;
+
+    public static BaseDb initDatabase(Context context, String packageName, String dbName, int dbVersion, Class[] modelClasses) {
+
+        if (sBaseDb == null) {
+            sBaseDb = new BaseDb(context, packageName, dbName, dbVersion, modelClasses);
+        }
+
+        return sBaseDb;
+    }
+
+    public static BaseDb getDb() {
+        return sBaseDb; //TODO throw exception if null ?
     }
 
     private class BaseDbHelper extends SQLiteOpenHelper
